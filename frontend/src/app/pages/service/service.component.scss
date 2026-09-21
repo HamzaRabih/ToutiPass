@@ -1,0 +1,58 @@
+.svc-crumb { padding: 26px 0 0; }
+.svc { padding: 22px 0 clamp(40px, 6vw, 56px); }
+
+.svc__grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 44px; align-items: start; }
+@media (max-width: 900px) { .svc__grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Colonne principale */
+.svc__main h1 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 14px; }
+.svc__lead { font-size: 18px; line-height: 1.6; color: var(--muted); max-width: 58ch; margin-bottom: 20px; }
+.svc__chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 34px; }
+.svc__chips .pill { height: 34px; font-size: 13.5px; }
+
+.svc__form { padding: clamp(20px, 3vw, 32px); }
+.svc__form-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.svc__form-head h3 { font-size: 24px; margin: 0; }
+.svc__count { font-family: var(--mono); font-size: 12px; color: var(--muted-line); }
+.svc__form-sub { font-size: 15px; color: var(--muted-2); margin: 0 0 26px; }
+.svc__progress { height: 4px; background: var(--line-2); border-radius: 999px; margin-bottom: 30px; overflow: hidden; }
+.svc__progress span { display: block; height: 4px; background: var(--brand); border-radius: 999px; transition: width 0.3s ease-out; }
+.svc__submit { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.svc__note { font-size: 14px; color: var(--muted-line); max-width: 34ch; }
+
+/* Colonne latérale */
+.svc__side { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 92px; }
+@media (max-width: 900px) { .svc__side { position: static; } }
+
+.svc__panel { background: var(--green-night); color: var(--on-dark-title); border-radius: var(--r-panel); padding: 28px; }
+.svc__panel-t { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.svc__panel p { font-size: 15px; color: var(--on-dark); line-height: 1.55; margin-bottom: 20px; }
+
+.svc__incl { padding: 26px; }
+.svc__incl-t { font-size: 16.5px; font-weight: 700; margin-bottom: 14px; }
+.svc__incl ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.svc__incl li { display: flex; gap: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+.svc__incl li span { color: var(--brand); font-weight: 700; }
+
+.svc__notfound { background: var(--amber-pale); border-radius: var(--r-panel); padding: 24px; }
+.svc__notfound-t { font-size: 15.5px; font-weight: 700; margin-bottom: 6px; }
+.svc__notfound p { font-size: 14.5px; color: #5b4a30; line-height: 1.55; margin-bottom: 14px; }
+.svc__notfound-btn { background: var(--amber-ink); color: var(--on-dark-title); height: 46px; padding: 0 20px; font-size: 14.5px; font-weight: 600; }
+.svc__notfound-btn:hover { background: #000; color: #fff; }
+
+/* Confirmation */
+.confirm { background: var(--sand-2); margin: 0 calc(-1 * var(--gutter)); padding: clamp(32px, 6vw, 72px) var(--gutter); display: flex; justify-content: center; border-radius: var(--r-panel); }
+.confirm__card { width: 100%; max-width: 720px; padding: clamp(28px, 5vw, 48px); text-align: center; border-radius: 24px; }
+.confirm__check {
+  width: 72px; height: 72px; border-radius: 50%; background: var(--green-pale); color: var(--brand);
+  display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; margin: 0 auto 24px;
+}
+.confirm__card h2 { font-size: clamp(28px, 5vw, 38px); margin-bottom: 12px; }
+.confirm__lead { font-size: 17.5px; color: var(--muted); line-height: 1.6; max-width: 46ch; margin: 0 auto 28px; }
+.confirm__ref { background: var(--sand-2); border: 1px dashed #d5cebf; border-radius: 16px; padding: 22px; margin-bottom: 28px; }
+.confirm__ref-val { font-family: var(--mono); font-size: 28px; font-weight: 500; letter-spacing: 0.02em; margin: 8px 0; }
+.confirm__ref-note { font-size: 13.5px; color: var(--muted-line); }
+.confirm__actions { display: flex; flex-direction: column; gap: 12px; }
+.confirm__two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.confirm__status { margin-top: 16px; font-size: 14px; color: var(--muted); }
+.confirm__hint { margin-top: 22px; font-size: 13.5px; color: var(--muted-3); }

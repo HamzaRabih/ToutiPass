@@ -1,0 +1,38 @@
+<footer class="ft">
+  <div class="tp-container">
+    <div class="ft__grid">
+      <div>
+        <img src="images/logo-horizontal-reversed.svg" alt="ToutiPass" class="ft__logo-img" width="252" height="64" />
+        <p class="ft__tag">Un besoin ? ToutiPass s'en occupe. Conciergerie multiservices à {{ ville }}.</p>
+      </div>
+
+      <nav class="ft__col" aria-label="Services">
+        <div class="ft__title">Services</div>
+        <a routerLink="/univers/maison-travaux">Maison &amp; travaux</a>
+        <a routerLink="/univers/menage-entretien">Ménage</a>
+        <a routerLink="/univers/cours-education">Cours</a>
+        <a routerLink="/univers/transport-logistique">Transport</a>
+      </nav>
+
+      <nav class="ft__col" aria-label="ToutiPass">
+        <div class="ft__title">ToutiPass</div>
+        <a routerLink="/comment-ca-marche">Comment ça marche</a>
+        <a routerLink="/pourquoi">Pourquoi ToutiPass</a>
+        <a routerLink="/devenir-partenaire">Devenir partenaire</a>
+        <a routerLink="/contact">Contact</a>
+      </nav>
+
+      <nav class="ft__col" aria-label="Contact">
+        <div class="ft__title">Contact</div>
+        <a [href]="'tel:' + telLien">Appel · {{ tel }}</a>
+        <span>Lubumbashi, RDC</span>
+        <a routerLink="/confidentialite">Confidentialité</a>
+      </nav>
+    </div>
+
+    <div class="ft__bottom">
+      <span>© {{ annee }} ToutiPass</span>
+      <span>Français · Swahili · Lingala</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,26 @@
+<header class="hd">
+  <div class="tp-container hd__inner">
+    <a routerLink="/" class="hd__logo" aria-label="ToutiPass — accueil" (click)="fermer()">
+      <img src="images/logo-horizontal.svg" alt="ToutiPass" class="hd__logo-img" width="252" height="64" />
+    </a>
+
+    <button
+      class="hd__burger"
+      type="button"
+      [attr.aria-expanded]="menuOuvert()"
+      aria-label="Ouvrir le menu"
+      (click)="toggle()"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="hd__nav" [class.hd__nav--open]="menuOuvert()">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="fermer()">Accueil</a>
+      <a routerLink="/services" routerLinkActive="is-active" (click)="fermer()">Services</a>
+      <a routerLink="/comment-ca-marche" routerLinkActive="is-active" (click)="fermer()">Comment ça marche</a>
+      <a routerLink="/pourquoi" routerLinkActive="is-active" (click)="fermer()">Pourquoi ToutiPass</a>
+      <a routerLink="/contact" routerLinkActive="is-active" (click)="fermer()">Contact</a>
+      <a routerLink="/devenir-partenaire" routerLinkActive="hd__cta--active" class="hd__cta" (click)="fermer()">Devenir partenaire</a>
+    </nav>
+  </div>
+</header>

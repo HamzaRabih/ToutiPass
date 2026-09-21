@@ -1,0 +1,42 @@
+<section class="page-head">
+  <div class="tp-container">
+    <h1>Rechercher un service</h1>
+    <form class="search-bar" (ngSubmit)="soumettre()">
+      <input
+        class="tp-input"
+        type="search"
+        name="q"
+        [(ngModel)]="terme"
+        placeholder="Ex. plombier, ménage, anglais…"
+        aria-label="Rechercher un service"
+      />
+      <button class="tp-btn tp-btn--primary" type="submit">Chercher</button>
+    </form>
+  </div>
+</section>
+
+<section class="tp-section">
+  <div class="tp-container">
+    @if (rechercheFaite()) {
+      @if (resultats().length > 0) {
+        <p class="lead">{{ resultats().length }} résultat(s) pour « {{ terme }} »</p>
+        <div class="grid-services">
+          @for (s of resultats(); track s.slug) {
+            <app-service-card [service]="s" />
+          }
+        </div>
+      } @else {
+        <div class="aide tp-card">
+          <p><strong>Aucun résultat pour « {{ terme }} ».</strong> Pas d'inquiétude : décrivez-nous votre besoin, ToutiPass cherche une solution.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px">
+            <a class="tp-btn tp-btn--primary" routerLink="/concierge">ToutiPass Concierge</a>
+            <a class="tp-btn tp-btn--outline" routerLink="/services">Parcourir les services</a>
+          </div>
+          <app-contact-actions />
+        </div>
+      }
+    } @else {
+      <p class="lead">Saisissez un mot-clé pour trouver un service, ou <a routerLink="/services">parcourez tous nos services</a>.</p>
+    }
+  </div>
+</section>

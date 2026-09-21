@@ -1,0 +1,18 @@
+# Dépendances et builds (le frontend a son propre .gitignore aussi)
+node_modules/
+dist/
+.angular/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Éditeurs / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Documents projet (confidentiels : cahier des charges, design, logos)
+Docs/

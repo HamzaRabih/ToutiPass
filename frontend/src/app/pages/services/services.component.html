@@ -1,0 +1,31 @@
+<section class="page-head">
+  <div class="tp-container">
+    <h1>Tous nos services</h1>
+    <p class="lead">Choisissez un univers, puis le service qui correspond à votre besoin.</p>
+  </div>
+</section>
+
+<section class="tp-section">
+  <div class="tp-container">
+    @for (u of (univers$ | async); track u.slug) {
+      <div class="univers-bloc">
+        <h2 class="univers-bloc__titre">
+          @if (u.iconName) { <span class="ub-ic"><app-icon [name]="u.iconName" [size]="22" /></span> }
+          {{ u.nom }}
+        </h2>
+        <div class="grid-services">
+          @for (s of u.services; track s.slug) {
+            <app-service-card [service]="s" />
+          }
+        </div>
+      </div>
+    }
+
+    @if (concierge$ | async; as concierge) {
+      <a class="aide tp-card" routerLink="/concierge" style="display:block">
+        <strong>Je ne trouve pas mon besoin</strong>
+        <p style="margin:6px 0 0">{{ concierge.services[0].description }}</p>
+      </a>
+    }
+  </div>
+</section>

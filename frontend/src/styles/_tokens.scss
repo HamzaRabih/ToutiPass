@@ -1,0 +1,66 @@
+// Design tokens ToutiPass — direction visuelle « Chaleureux, mais tenu. »
+// Source : handoff Claude Design (README + ToutiPass.dc.html). Valeurs définitives.
+// Deux couleurs de marque exposées en variables : --brand et --amber.
+
+:root {
+  // Marque
+  --brand: #0e6b52;        // actions, liens, chips sélectionnés, bordure champ actif
+  --brand-hover: #0a5140;  // hover/pressé ; texte vert sur fond clair
+  --green-night: #08372b;  // fonds pleins (Concierge, panneau partenaire, footer)
+  --green-pale: #e7f0eb;   // badges, pastilles d'icône, message de succès
+
+  --amber: #e8891b;        // CTA WhatsApp sur fond sombre, marqueurs requis, numérotation
+  --amber-pale: #fdf0dc;   // fond bloc « Je ne trouve pas mon besoin »
+  --amber-ink: #20140a;    // texte sur fond ambre
+
+  // Fonds
+  --sand: #fbf8f3;         // fond de page principal
+  --sand-2: #f5f1e9;       // section alternée, fond confirmation
+  --white: #ffffff;        // cartes, champs
+
+  // Texte
+  --ink: #10211c;          // texte principal, header mobile
+  --ink-2: #26362f;        // liens de nav, texte de chip
+  --muted: #4b5a54;        // paragraphes
+  --muted-2: #5c6b64;      // descriptions de carte
+  --muted-3: #8b9a93;      // placeholders, métadonnées
+  --muted-line: #6a7a73;   // fil d'Ariane, notes
+
+  // Texte sur fond sombre
+  --on-dark-title: #fbf8f3;
+  --on-dark: #a9bdb4;
+  --on-dark-footer: #c7d6cf;
+
+  // Lignes
+  --line: #e7e1d6;         // artboard / cadre
+  --line-2: #efeae0;       // séparateur
+  --line-card: #eae4d9;    // bordure de carte
+  --line-field: #dcd6c9;   // bordure de champ
+
+  // Erreur
+  --error: #b23a1e;
+
+  // Typographie
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  // Rayons
+  --r-field: 12px;         // bouton, champ, chip
+  --r-card: 18px;          // carte
+  --r-panel: 20px;         // panneau, bloc sombre
+  --r-pill: 999px;
+  --r-mobile-frame: 44px;
+
+  // Ombres (basses)
+  --sh-search: 0 2px 10px rgba(16, 33, 28, 0.04);
+  --sh-float: 0 10px 30px rgba(16, 33, 28, 0.1);
+  --sh-fab: 0 10px 26px rgba(8, 55, 43, 0.3);
+  --focus-ring: 0 0 0 3px rgba(14, 107, 82, 0.12);
+
+  // Emplacement photo (rayures beige)
+  --photo-stripes: repeating-linear-gradient(135deg, #ede8de 0 10px, #f5f1e9 10px 20px);
+
+  // Layout
+  --gutter: clamp(18px, 4vw, 48px);
+  --max-width: 1280px;
+}

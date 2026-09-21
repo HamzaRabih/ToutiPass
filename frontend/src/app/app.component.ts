@@ -1,0 +1,27 @@
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { WhatsappFabComponent } from './shared/components/whatsapp-fab/whatsapp-fab.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, WhatsappFabComponent],
+  template: `
+    <app-header />
+    <main class="app-main">
+      <router-outlet />
+    </main>
+    <app-footer />
+    <app-whatsapp-fab />
+  `,
+  styles: [
+    `
+      .app-main {
+        min-height: 60vh;
+      }
+    `,
+  ],
+})
+export class AppComponent {}

@@ -1,0 +1,52 @@
+<section class="page-head">
+  <div class="tp-container">
+    <h1>Être rappelé</h1>
+    <p class="lead">Laissez-nous vos coordonnées : un conseiller ToutiPass vous rappelle.</p>
+  </div>
+</section>
+
+<section class="tp-section">
+  <div class="tp-container">
+    @if (envoye()) {
+      <div class="form-card tp-card" style="text-align:center">
+        <div style="font-size:2.4rem">✅</div>
+        <h2>C'est noté !</h2>
+        <p>Nous vous rappelons dès que possible. Vous pouvez aussi nous écrire tout de suite sur WhatsApp.</p>
+        <app-contact-actions layout="stack" />
+      </div>
+    } @else {
+      <form class="form-card tp-card" [formGroup]="form" (ngSubmit)="soumettre()">
+        <div class="tp-field">
+          <label for="nom">Votre nom <span class="tp-required">*</span></label>
+          <input id="nom" class="tp-input" type="text" formControlName="nom" />
+        </div>
+        <div class="tp-field">
+          <label for="tel">Téléphone <span class="tp-required">*</span></label>
+          <input id="tel" class="tp-input" type="tel" formControlName="telephone" placeholder="Ex. +243 …" />
+        </div>
+        <div class="tp-field">
+          <label for="langue">Langue souhaitée</label>
+          <select id="langue" class="tp-select" formControlName="langue">
+            <option>Français</option>
+            <option>Swahili</option>
+            <option>Lingala</option>
+            <option>Anglais</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="tp-field">
+          <label for="creneau">Créneau souhaité</label>
+          <input id="creneau" class="tp-input" type="text" formControlName="creneau" placeholder="Ex. Aujourd'hui après-midi" />
+        </div>
+
+        @if (erreur()) {
+          <div class="tp-alert tp-alert--error">{{ erreur() }}</div>
+        }
+
+        <button class="tp-btn tp-btn--primary tp-btn--block" type="submit" [disabled]="envoiEnCours()">
+          {{ envoiEnCours() ? 'Envoi…' : 'Demander à être rappelé' }}
+        </button>
+      </form>
+    }
+  </div>
+</section>

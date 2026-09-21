@@ -1,0 +1,115 @@
+@if (service$ | async; as service) {
+  @if (service) {
+
+    <!-- Fil d'Ariane -->
+    <div class="svc-crumb">
+      <div class="tp-container">
+        <nav class="crumb">
+          <a routerLink="/services">Accueil</a><span aria-hidden="true">›</span>
+          <span class="is-current">{{ service.nom }}</span>
+        </nav>
+      </div>
+    </div>
+
+    <section class="svc">
+      <div class="tp-container">
+
+        @if (!demandeEnvoyee()) {
+          <div class="svc__grid">
+
+            <!-- Colonne principale -->
+            <div class="svc__main">
+              <h1>{{ service.seoTitle ? (service.nom + ' à ' + ville) : service.nom }}</h1>
+              <p class="svc__lead">{{ service.seoIntro ?? service.description }}</p>
+              <div class="svc__chips">
+                <span class="pill">Intervention à domicile</span>
+                <span class="pill">Partenaire vérifié</span>
+                <span class="pill">Sans engagement</span>
+              </div>
+
+              <form class="svc__form tp-card" [formGroup]="form!" (ngSubmit)="soumettre()">
+                <div class="svc__form-head">
+                  <h3>Parlez-nous de votre besoin</h3>
+                  <span class="svc__count">{{ nbRepondues }} / {{ nbQuestions }}</span>
+                </div>
+                <p class="svc__form-sub">{{ nbQuestions }} questions, aucune inscription. On vous rappelle ensuite.</p>
+
+                <div class="svc__progress"><span [style.width.%]="progressPct"></span></div>
+
+                @for (q of service.questions; track q.id) {
+                  <app-question-field [question]="q" [control]="ctrl(q.id)" />
+                }
+
+                <div class="svc__submit">
+                  <button class="tp-btn tp-btn--primary tp-btn--lg" type="submit">Envoyer ma demande</button>
+                  <span class="svc__note">Sans engagement. Estimation donnée après l'échange.</span>
+                </div>
+              </form>
+            </div>
+
+            <!-- Colonne latérale -->
+            <aside class="svc__side">
+              <div class="svc__panel">
+                <div class="svc__panel-t">Plus simple à l'oral ?</div>
+                <p>Envoyez une photo ou un vocal sur WhatsApp, on s'occupe du reste.</p>
+                <app-contact-actions layout="stack" [onDark]="true" primaryLabel="Continuer sur WhatsApp" primaryVariant="amber" />
+              </div>
+
+              <div class="tp-card svc__incl">
+                <div class="svc__incl-t">Ce que comprend l'intervention</div>
+                <ul>
+                  <li><span aria-hidden="true">✓</span> Déplacement et diagnostic sur place</li>
+                  <li><span aria-hidden="true">✓</span> Estimation validée avant toute prestation</li>
+                  <li><span aria-hidden="true">✓</span> Suivi ToutiPass jusqu'à la fin</li>
+                </ul>
+              </div>
+
+              <div class="svc__notfound">
+                <div class="svc__notfound-t">Ce n'est pas exactement ça ?</div>
+                <p>Décrivez la situation, ToutiPass Concierge trouve le bon métier.</p>
+                <a class="tp-btn svc__notfound-btn" routerLink="/concierge">Je ne trouve pas mon besoin</a>
+              </div>
+            </aside>
+          </div>
+        }
+
+        <!-- Confirmation -->
+        @else {
+          <div class="confirm">
+            <div class="confirm__card tp-card">
+              <div class="confirm__check" aria-hidden="true">✓</div>
+              <h2>C'est enregistré.</h2>
+              <p class="confirm__lead">Un conseiller ToutiPass vous rappelle dans l'heure pour préciser le besoin et convenir du créneau.</p>
+
+              <div class="confirm__ref">
+                <div class="mono-label">Votre référence</div>
+                <div class="confirm__ref-val">{{ demandeEnvoyee()!.reference }}</div>
+                <div class="confirm__ref-note">Gardez-la : elle suit votre demande du premier appel à la fin de l'intervention.</div>
+              </div>
+
+              <div class="confirm__actions">
+                <a class="tp-btn tp-btn--primary tp-btn--lg tp-btn--block" [href]="lienWhatsapp()" target="_blank" rel="noopener">Continuer sur WhatsApp</a>
+                <div class="confirm__two">
+                  <a class="tp-btn tp-btn--outline" routerLink="/etre-rappele">Être rappelé</a>
+                  <a class="tp-btn tp-btn--outline" [href]="'tel:' + telLien">Appeler</a>
+                </div>
+              </div>
+
+              @if (statutEnvoi()) { <p class="confirm__status">{{ statutEnvoi() }}</p> }
+              <p class="confirm__hint">Le message WhatsApp est prérempli avec votre référence et vos réponses.</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+  } @else {
+    <section class="tp-section">
+      <div class="tp-container">
+        <h1>Service introuvable</h1>
+        <p>Ce service n'existe pas ou n'est plus disponible.</p>
+        <a class="tp-btn tp-btn--primary" routerLink="/services">Voir tous les services</a>
+      </div>
+    </section>
+  }
+}

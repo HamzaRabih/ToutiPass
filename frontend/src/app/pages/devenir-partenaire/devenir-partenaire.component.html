@@ -1,0 +1,83 @@
+@if (envoye()) {
+  <section class="tp-section">
+    <div class="tp-container">
+      <div class="form-card tp-card pt-merci">
+        <div class="pt-merci__check" aria-hidden="true">✓</div>
+        <h2>Merci, votre candidature est enregistrée</h2>
+        <p>Notre équipe vous recontacte sous 48 h ouvrées. En attendant, vous pouvez nous écrire sur WhatsApp.</p>
+        <app-contact-actions layout="stack" primaryLabel="Écrire sur WhatsApp" primaryVariant="brand" />
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="pt">
+    <div class="tp-container">
+      <div class="pt__grid">
+
+        <!-- Colonne argument (sombre) -->
+        <div class="pt__aside">
+          <h2>Vous savez faire quelque chose de bien ?</h2>
+          <p class="pt__aside-lead">ToutiPass peut vous apporter des missions. Nous qualifions la demande, vous faites ce que vous savez faire.</p>
+          <div class="pt__args">
+            <div class="pt__arg"><span class="pt__arg-n">01</span><div><div class="pt__arg-t">Des missions près de chez vous</div><div class="pt__arg-d">Nous affectons selon le quartier et la compétence.</div></div></div>
+            <div class="pt__arg"><span class="pt__arg-n">02</span><div><div class="pt__arg-t">Pas de mise en concurrence</div><div class="pt__arg-d">Aucun classement public, aucune enchère sur les prix.</div></div></div>
+            <div class="pt__arg"><span class="pt__arg-n">03</span><div><div class="pt__arg-t">Inscription gratuite</div><div class="pt__arg-d">Cinq minutes, puis un appel de vérification.</div></div></div>
+          </div>
+          <app-photo ratio="3 / 2" radius="16px" src="images/partenaire.jpg" alt="Un partenaire ToutiPass au travail" label="photo · partenaire au travail · 900×600" />
+        </div>
+
+        <!-- Colonne formulaire -->
+        <div class="pt__form">
+          <h3>Rejoindre le réseau ToutiPass</h3>
+          <p class="pt__form-sub">Champs marqués d'un point : obligatoires.</p>
+
+          <form [formGroup]="form" (ngSubmit)="soumettre()">
+            <div class="pt__row">
+              <div class="tp-field">
+                <label for="nom">Nom complet <span class="tp-required">•</span></label>
+                <input id="nom" class="tp-input" type="text" formControlName="nom" placeholder="Prénom et nom" />
+              </div>
+              <div class="tp-field">
+                <label for="tel">Téléphone <span class="tp-required">•</span></label>
+                <input id="tel" class="tp-input" type="tel" formControlName="telephone" placeholder="+243 …" />
+              </div>
+              <div class="tp-field">
+                <label for="wa">Numéro WhatsApp</label>
+                <input id="wa" class="tp-input" type="tel" formControlName="whatsapp" placeholder="Identique au téléphone" />
+              </div>
+              <div class="tp-field">
+                <label for="ville">Ville / quartier <span class="tp-required">•</span></label>
+                <input id="ville" class="tp-input" type="text" formControlName="villeQuartier" placeholder="Lubumbashi · quartier" />
+              </div>
+            </div>
+
+            @if (competencesQ) {
+              <app-question-field [question]="competencesQ" [control]="ctrl('competences')" />
+            }
+
+            <div class="pt__row">
+              <app-question-field [question]="languesQ" [control]="ctrl('langues')" />
+              <app-question-field [question]="experienceQ" [control]="ctrl('experience')" />
+            </div>
+
+            <app-question-field [question]="moyensQ" [control]="ctrl('moyens')" />
+
+            <label class="pt__consent">
+              <input type="checkbox" formControlName="consentement" />
+              <span>J'accepte que ToutiPass conserve ces informations pour me proposer des missions et me contacter par téléphone ou WhatsApp.</span>
+            </label>
+
+            @if (erreur()) { <div class="tp-alert tp-alert--error">{{ erreur() }}</div> }
+
+            <div class="pt__submit">
+              <button class="tp-btn tp-btn--primary tp-btn--lg" type="submit" [disabled]="envoiEnCours()">
+                {{ envoiEnCours() ? 'Envoi…' : 'Envoyer ma candidature' }}
+              </button>
+              <span class="pt__submit-note">Réponse sous 48 h ouvrées.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+}

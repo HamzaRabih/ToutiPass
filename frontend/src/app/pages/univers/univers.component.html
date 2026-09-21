@@ -1,0 +1,35 @@
+@if (univers$ | async; as u) {
+  <section class="page-head">
+    <div class="tp-container">
+      <nav class="crumb"><a routerLink="/services">Services</a> › <span class="is-current">{{ u.nom }}</span></nav>
+      <h1 class="uni-h1">
+        @if (u.iconName) { <span class="uni-h1__ic"><app-icon [name]="u.iconName" [size]="30" /></span> }
+        {{ u.nom }}
+      </h1>
+      @if (u.tagline) { <p class="lead">{{ u.tagline }}</p> }
+    </div>
+  </section>
+
+  <section class="tp-section">
+    <div class="tp-container">
+      <div class="grid-services">
+        @for (s of u.services; track s.slug) {
+          <app-service-card [service]="s" />
+        }
+      </div>
+
+      <div class="aide tp-card">
+        <p><strong>Vous ne trouvez pas exactement votre besoin ?</strong> Parlons-en directement.</p>
+        <app-contact-actions />
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="tp-section">
+    <div class="tp-container">
+      <h1>Univers introuvable</h1>
+      <p>Cet univers n'existe pas ou n'est plus disponible.</p>
+      <a class="tp-btn tp-btn--primary" routerLink="/services">Voir tous les services</a>
+    </div>
+  </section>
+}

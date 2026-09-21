@@ -1,0 +1,59 @@
+<div class="tp-field qf">
+  <label [attr.for]="'q-' + question.id">
+    {{ question.label }}
+    @if (question.required) { <span class="tp-required">*</span> }
+  </label>
+
+  @switch (question.type) {
+    @case ('single') {
+      <div class="qf__chips" role="group" [attr.aria-label]="question.label">
+        @for (opt of question.options; track opt.value) {
+          <button
+            type="button"
+            class="chip"
+            [class.is-on]="control.value === opt.value"
+            (click)="choisirSingle(opt.value)"
+          >
+            {{ opt.label }}
+          </button>
+        }
+      </div>
+    }
+    @case ('multi') {
+      <div class="qf__chips" role="group" [attr.aria-label]="question.label">
+        @for (opt of question.options; track opt.value) {
+          <button
+            type="button"
+            class="chip"
+            [class.is-on]="estCoche(opt.value)"
+            [attr.aria-pressed]="estCoche(opt.value)"
+            (click)="toggleMulti(opt.value)"
+          >
+            {{ opt.label }}
+          </button>
+        }
+      </div>
+    }
+    @case ('textarea') {
+      <textarea
+        class="tp-textarea"
+        [id]="'q-' + question.id"
+        [formControl]="control"
+        [placeholder]="question.placeholder || ''"
+      ></textarea>
+    }
+    @default {
+      <input
+        class="tp-input"
+        [id]="'q-' + question.id"
+        type="text"
+        [formControl]="control"
+        [placeholder]="question.placeholder || ''"
+      />
+    }
+  }
+
+  @if (invalide) {
+    <p class="tp-error-text">Cette information est nécessaire.</p>
+  }
+</div>

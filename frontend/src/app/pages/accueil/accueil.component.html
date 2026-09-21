@@ -1,0 +1,135 @@
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="tp-container hero__inner">
+    <div class="hero__content">
+      <span class="pill">Conciergerie multiservices · Lubumbashi</span>
+      <h1>De quoi avez-vous besoin aujourd'hui ?</h1>
+      <p class="hero__sous">
+        Plomberie, ménage, cours, transport, services pros. Vous expliquez, on s'occupe du reste :
+        un partenaire vérifié, choisi et suivi par notre équipe.
+      </p>
+
+      <form class="hero__search" (ngSubmit)="rechercher()">
+        <span class="hero__search-dot" aria-hidden="true"></span>
+        <input
+          type="search"
+          name="q"
+          [(ngModel)]="terme"
+          placeholder="Ex. « fuite sous l'évier », « cours de maths »…"
+          aria-label="Chercher un service"
+        />
+        <button class="tp-btn tp-btn--primary" type="submit">Chercher</button>
+      </form>
+
+      <div class="hero__actions">
+        <app-contact-actions primaryLabel="Parler de mon besoin" primaryVariant="dark" />
+      </div>
+
+      <ul class="hero__trust">
+        <li><span aria-hidden="true">✓</span> Partenaires vérifiés</li>
+        <li><span aria-hidden="true">✓</span> Sans création de compte</li>
+        <li><span aria-hidden="true">✓</span> Réponse humaine, pas un robot</li>
+      </ul>
+    </div>
+
+    <div class="hero__visual">
+      <app-photo ratio="5 / 6" radius="22px" src="images/hero.jpg" alt="Un intervenant ToutiPass au travail chez un client" label="photo hero — artisan chez un client · 1000×1200" />
+      <div class="hero__badge tp-card hero__badge--float" aria-hidden="true">
+        <span class="hero__badge-ic"><app-icon name="shield-check" [size]="22" /></span>
+        <div>
+          <div class="hero__badge-ref">Demande TP-LUB-2026-004812</div>
+          <div class="hero__badge-sub">Partenaire affecté · suivi en cours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAR UNIVERS ===== -->
+<section class="tp-section band-sand">
+  <div class="tp-container">
+    <div class="univers-top" appReveal>
+      <div class="sec-head" style="margin-bottom:0">
+        <h3>Par univers</h3>
+        <p>Six familles de services. Vous choisissez, on qualifie avec vous.</p>
+      </div>
+      <a class="univers-top__link" routerLink="/services">Tous les services →</a>
+    </div>
+
+    <div class="grid-univers">
+      @for (u of (univers$ | async); track u.slug; let i = $index) {
+        <div appReveal [revealDelay]="i * 50"><app-univers-card [univers]="u" /></div>
+      }
+    </div>
+
+    @if (concierge$ | async; as concierge) {
+      <a class="concierge" routerLink="/concierge" appReveal>
+        <span class="concierge__left">
+          <span class="concierge__ic" aria-hidden="true"><app-icon name="help" [size]="24" /></span>
+          <span>
+            <strong>Je ne trouve pas mon besoin</strong>
+            <span class="concierge__sub">ToutiPass Concierge : décrivez la situation, on cherche pour vous.</span>
+          </span>
+        </span>
+        <span class="tp-btn tp-btn--amber concierge__btn">Décrire ma situation</span>
+      </a>
+    }
+  </div>
+</section>
+
+<!-- ===== COMMENT ÇA MARCHE ===== -->
+<section class="tp-section">
+  <div class="tp-container">
+    <div class="sec-head" appReveal>
+      <h3>Comment ça marche</h3>
+      <p>Cinq étapes, un seul interlocuteur du début à la fin.</p>
+    </div>
+    <div class="steps">
+      @for (s of etapes; track s.n; let i = $index) {
+        <div class="step" [class.step--first]="i === 0" appReveal [revealDelay]="i * 60">
+          <div class="step__n">{{ s.n }}</div>
+          <div class="step__t">{{ s.titre }}</div>
+          <div class="step__d">{{ s.desc }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===== POURQUOI ===== -->
+<section class="tp-section band-sand">
+  <div class="tp-container pourquoi" appReveal>
+    <div class="pourquoi__intro">
+      <h3>Pourquoi ToutiPass</h3>
+      <p>Vos services du quotidien, un seul contact. Pas de liste à éplucher, pas de profils à comparer : une équipe qui connaît ses partenaires et répond de leur travail.</p>
+      <a class="tp-btn tp-btn--primary" [href]="lienWhatsapp" target="_blank" rel="noopener">Parler de mon besoin</a>
+    </div>
+    <div class="pourquoi__grid">
+      @for (e of engagements; track e.t; let i = $index) {
+        <div class="eng tp-card">
+          <span class="eng__ic" [class.eng__ic--amber]="i === 3"><app-icon [name]="e.ic" [size]="20" /></span>
+          <div class="eng__t">{{ e.t }}</div>
+          <div class="eng__d">{{ e.d }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===== BANDEAU FINAL ===== -->
+<section class="tp-section">
+  <div class="tp-container final" appReveal>
+    <div class="final__partner">
+      <div class="mono-label" style="color:var(--amber)">Partenaires</div>
+      <h3>Vous savez faire quelque chose de bien ?</h3>
+      <p>ToutiPass peut vous apporter des missions près de chez vous. Inscription en cinq minutes, sans frais.</p>
+      <a class="tp-btn tp-btn--amber" routerLink="/devenir-partenaire">Rejoindre le réseau ToutiPass</a>
+    </div>
+    <div class="final__contact tp-card">
+      <h3>Un besoin maintenant ?</h3>
+      <p>On répond de 7 h à 21 h, sept jours sur sept. Zone desservie : Lubumbashi et périphérie.</p>
+      <app-contact-actions layout="stack" primaryLabel="Écrire sur WhatsApp" primaryVariant="brand" />
+    </div>
+  </div>
+</section>
