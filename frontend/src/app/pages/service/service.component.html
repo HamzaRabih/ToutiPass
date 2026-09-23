@@ -55,7 +55,7 @@
                 <app-contact-actions layout="stack" [onDark]="true" primaryLabel="Continuer sur WhatsApp" primaryVariant="amber" />
               </div>
 
-              <div class="tp-card svc__incl">
+              <div class="tp-card svc__incl" appReveal>
                 <div class="svc__incl-t">Ce que comprend l'intervention</div>
                 <ul>
                   <li><span aria-hidden="true">✓</span> Déplacement et diagnostic sur place</li>
@@ -105,7 +105,7 @@
 
   } @else {
     <section class="tp-section">
-      <div class="tp-container">
+      <div class="tp-container" appReveal>
         <h1>Service introuvable</h1>
         <p>Ce service n'existe pas ou n'est plus disponible.</p>
         <a class="tp-btn tp-btn--primary" routerLink="/services">Voir tous les services</a>

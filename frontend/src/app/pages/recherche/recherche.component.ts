@@ -5,11 +5,12 @@ import { CatalogueService } from '../../core/services/catalogue.service';
 import { Service } from '../../core/models/catalogue.model';
 import { ServiceCardComponent } from '../../shared/components/service-card/service-card.component';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-recherche',
   standalone: true,
-  imports: [FormsModule, RouterLink, ServiceCardComponent, ContactActionsComponent],
+  imports: [FormsModule, RouterLink, ServiceCardComponent, ContactActionsComponent, RevealDirective],
   templateUrl: './recherche.component.html',
 })
 export class RechercheComponent {

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component, OnDestroy, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CatalogueService } from '../../core/services/catalogue.service';
@@ -26,15 +26,55 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss',
 })
-export class AccueilComponent {
+export class AccueilComponent implements OnInit, OnDestroy {
   private catalogue = inject(CatalogueService);
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
 
   readonly univers$ = this.catalogue.getUnivers();
   readonly concierge$ = this.catalogue.getConcierge();
   readonly lienWhatsapp = inject(WhatsappService).lienAccueil();
 
   terme = '';
+
+  /**
+   * Exemples qui défilent dans le champ de recherche : le hero « vit » et
+   * l'utilisateur comprend en deux secondes ce qu'il peut demander.
+   * Le premier sert de valeur rendue au prerender (SSR) puis en cas de
+   * prefers-reduced-motion, où la rotation ne démarre pas.
+   */
+  private readonly exemples = [
+    'Ex. « fuite sous l’évier »…',
+    'Ex. « cours de maths en 3e »…',
+    'Ex. « ménage hebdomadaire »…',
+    'Ex. « déménagement samedi »…',
+    'Ex. « panne de climatiseur »…',
+    'Ex. « garde d’enfants le soir »…',
+  ];
+  readonly placeholder = signal(this.exemples[0]);
+  private rotation?: ReturnType<typeof setInterval>;
+  private indexExemple = 0;
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    // Respecte le choix système : pas de rotation si l'utilisateur a demandé
+    // moins d'animations (le CSS ne peut pas neutraliser un texte qui change).
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    this.rotation = setInterval(() => {
+      this.indexExemple = (this.indexExemple + 1) % this.exemples.length;
+      this.placeholder.set(this.exemples[this.indexExemple]);
+    }, 3200);
+  }
+
+  ngOnDestroy(): void {
+    if (this.rotation) {
+      clearInterval(this.rotation);
+    }
+  }
 
   readonly etapes = [
     { n: '01', titre: 'Vous décrivez', desc: 'Par le site ou directement sur WhatsApp, en deux phrases.' },

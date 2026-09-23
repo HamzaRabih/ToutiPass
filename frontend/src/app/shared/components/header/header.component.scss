@@ -5,10 +5,24 @@
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line-2);
 }
-.hd__inner { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 12px; }
+.hd__inner {
+  display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 12px;
+  transition: height 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
 
 .hd__logo { display: inline-flex; align-items: center; }
-.hd__logo-img { height: 34px; width: auto; display: block; }
+.hd__logo-img {
+  height: 34px; width: auto; display: block;
+  transition: height 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Condensation au scroll — desktop uniquement : en mobile le menu déroulant est
+   positionné en `top: 60px`, une hauteur variable le décrocherait du header. */
+@media (min-width: 901px) {
+  .hd--condense { background: rgba(251, 248, 243, 0.97); box-shadow: 0 6px 20px rgba(8, 55, 43, 0.07); }
+  .hd--condense .hd__inner { height: 62px; }
+  .hd--condense .hd__logo-img { height: 29px; }
+}
 
 .hd__nav { display: flex; align-items: center; gap: 24px; font-size: 15px; font-weight: 500; }
 .hd__nav a { color: var(--ink-2); }

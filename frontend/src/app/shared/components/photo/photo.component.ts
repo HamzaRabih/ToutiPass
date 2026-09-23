@@ -16,7 +16,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-photo',
   standalone: true,
   template: `
-    <div class="photo" [style.aspectRatio]="ratio" [style.borderRadius]="radius">
+    <div class="photo" [class.photo--kenburns]="effet === 'kenburns'" [style.aspectRatio]="ratio" [style.borderRadius]="radius">
       @if (src) {
         <img
           class="photo__img"
@@ -38,6 +38,19 @@ import { Component, Input } from '@angular/core';
       .photo { position: relative; width: 100%; height: 100%; }
       .photo__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
       .photo__label--plain { background: transparent; border: 0; padding: 0; }
+
+      /* Ken Burns : zoom/panoramique très lent. L'image « respire » sans un octet
+         de plus (transform seul = composité par le GPU, aucun repaint).
+         Neutralisé globalement par prefers-reduced-motion dans styles.scss. */
+      .photo--kenburns { overflow: hidden; }
+      .photo--kenburns .photo__img {
+        animation: tp-kenburns 24s ease-in-out infinite alternate;
+        will-change: transform;
+      }
+      @keyframes tp-kenburns {
+        from { transform: scale(1) translate3d(0, 0, 0); }
+        to   { transform: scale(1.08) translate3d(-1.5%, -1.5%, 0); }
+      }
     `,
   ],
 })
@@ -52,4 +65,6 @@ export class PhotoComponent {
   @Input() alt = '';
   /** true : label discret sans encadré (cartes univers). */
   @Input() plain = false;
+  /** 'kenburns' : zoom lent et continu sur l'image (hero). Vide = image fixe. */
+  @Input() effet: '' | 'kenburns' = '';
 }

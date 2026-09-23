@@ -1,6 +1,6 @@
 @if (univers$ | async; as u) {
   <section class="page-head">
-    <div class="tp-container">
+    <div class="tp-container" appReveal>
       <nav class="crumb"><a routerLink="/services">Services</a> › <span class="is-current">{{ u.nom }}</span></nav>
       <h1 class="uni-h1">
         @if (u.iconName) { <span class="uni-h1__ic"><app-icon [name]="u.iconName" [size]="30" /></span> }
@@ -13,12 +13,12 @@
   <section class="tp-section">
     <div class="tp-container">
       <div class="grid-services">
-        @for (s of u.services; track s.slug) {
-          <app-service-card [service]="s" />
+        @for (s of u.services; track s.slug; let i = $index) {
+          <app-service-card [service]="s" appReveal [revealDelay]="i * 45" />
         }
       </div>
 
-      <div class="aide tp-card">
+      <div class="aide tp-card" appReveal>
         <p><strong>Vous ne trouvez pas exactement votre besoin ?</strong> Parlons-en directement.</p>
         <app-contact-actions />
       </div>

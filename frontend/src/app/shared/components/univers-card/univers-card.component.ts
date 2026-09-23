@@ -36,10 +36,26 @@ import { IconComponent } from '../icon/icon.component';
         transition: border-color 0.15s ease-out, transform 0.15s ease-out;
       }
       .uc:hover { text-decoration: none; border-color: var(--line-field); transform: translateY(-2px); }
-      .uc__media { position: relative; display: block; }
+      /* overflow:hidden indispensable : sans lui, l'image zoomée déborde sur le texte. */
+      .uc__media { position: relative; display: block; overflow: hidden; }
       .uc__media app-photo { display: block; }
+
+      /* Zoom lent de la photo au survol. transform seul => animé par le GPU.
+         La carte garde bordure + translateY(-2px) sans ombre (design system). */
+      .uc ::ng-deep .photo__img {
+        transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      .uc:hover ::ng-deep .photo__img { transform: scale(1.07); }
+
+      /* Voile dégradé qui monte au survol : ancre le badge et donne du relief. */
+      .uc__media::after {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(to top, rgba(8, 55, 43, 0.38), rgba(8, 55, 43, 0) 55%);
+        opacity: 0; transition: opacity 0.35s ease-out;
+      }
+      .uc:hover .uc__media::after { opacity: 1; }
       .uc__badge {
-        position: absolute; left: 14px; bottom: 14px;
+        position: absolute; left: 14px; bottom: 14px; z-index: 1;
         display: inline-flex; align-items: center; justify-content: center;
         width: 40px; height: 40px; border-radius: 12px;
         background: var(--white); color: var(--brand);

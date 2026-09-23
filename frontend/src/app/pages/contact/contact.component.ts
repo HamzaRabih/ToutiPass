@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
 import { environment } from '../../../environments/environment';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ContactActionsComponent],
+  imports: [ContactActionsComponent, RevealDirective],
   template: `
     <section class="page-head">
-      <div class="tp-container">
+      <div class="tp-container" appReveal>
         <span class="pill">On répond de 7 h à 21 h · 7j/7</span>
         <h1>Contact</h1>
         <p class="lead">Un humain reste joignable à tout moment. Écrivez, appelez, ou demandez à être rappelé.</p>

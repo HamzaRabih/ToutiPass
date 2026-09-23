@@ -4,11 +4,12 @@ import { SubmissionService } from '../../core/services/submission.service';
 import { ReferenceService } from '../../core/services/reference.service';
 import { RappelPayload } from '../../core/models/submission.model';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-etre-rappele',
   standalone: true,
-  imports: [ReactiveFormsModule, ContactActionsComponent],
+  imports: [ReactiveFormsModule, ContactActionsComponent, RevealDirective],
   templateUrl: './etre-rappele.component.html',
 })
 export class EtreRappeleComponent {

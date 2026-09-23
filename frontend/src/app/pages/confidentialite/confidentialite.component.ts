@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-confidentialite',
   standalone: true,
+  imports: [RevealDirective],
   template: `
     <section class="page-head">
-      <div class="tp-container">
+      <div class="tp-container" appReveal>
         <h1>Confidentialité &amp; consentement</h1>
         <p class="lead">Nous ne collectons que les données nécessaires pour traiter votre demande.</p>
       </div>
     </section>
 
     <section class="tp-section">
-      <div class="tp-container prose">
+      <div class="tp-container prose" appReveal>
         <h2>Données collectées</h2>
         <p>
           Lorsque vous soumettez une demande de service, une candidature partenaire ou une demande

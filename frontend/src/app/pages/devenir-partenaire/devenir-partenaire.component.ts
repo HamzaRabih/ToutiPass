@@ -10,11 +10,12 @@ import { CandidaturePayload } from '../../core/models/submission.model';
 import { QuestionFieldComponent } from '../../shared/components/question-field/question-field.component';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
 import { PhotoComponent } from '../../shared/components/photo/photo.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-devenir-partenaire',
   standalone: true,
-  imports: [ReactiveFormsModule, QuestionFieldComponent, ContactActionsComponent, PhotoComponent],
+  imports: [ReactiveFormsModule, QuestionFieldComponent, ContactActionsComponent, PhotoComponent, RevealDirective],
   templateUrl: './devenir-partenaire.component.html',
   styleUrl: './devenir-partenaire.component.scss',
 })

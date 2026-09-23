@@ -15,11 +15,12 @@ import { environment } from '../../../environments/environment';
 
 import { QuestionFieldComponent } from '../../shared/components/question-field/question-field.component';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, ReactiveFormsModule, QuestionFieldComponent, ContactActionsComponent],
+  imports: [AsyncPipe, RouterLink, ReactiveFormsModule, QuestionFieldComponent, ContactActionsComponent, RevealDirective],
   templateUrl: './service.component.html',
   styleUrl: './service.component.scss',
 })

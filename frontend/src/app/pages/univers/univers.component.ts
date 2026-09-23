@@ -7,11 +7,12 @@ import { SeoService } from '../../core/services/seo.service';
 import { ServiceCardComponent } from '../../shared/components/service-card/service-card.component';
 import { ContactActionsComponent } from '../../shared/components/contact-actions/contact-actions.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-univers',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, ServiceCardComponent, ContactActionsComponent, IconComponent],
+  imports: [AsyncPipe, RouterLink, ServiceCardComponent, ContactActionsComponent, IconComponent, RevealDirective],
   templateUrl: './univers.component.html',
 })
 export class UniversComponent {

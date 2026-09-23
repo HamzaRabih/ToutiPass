@@ -4,7 +4,7 @@
   <div class="tp-container hero__inner">
     <div class="hero__content">
       <span class="pill">Conciergerie multiservices · Lubumbashi</span>
-      <h1>De quoi avez-vous besoin aujourd'hui ?</h1>
+      <h1>De quoi avez-vous besoin aujourd'hui&nbsp;?</h1>
       <p class="hero__sous">
         Plomberie, ménage, cours, transport, services pros. Vous expliquez, on s'occupe du reste :
         un partenaire vérifié, choisi et suivi par notre équipe.
@@ -16,7 +16,7 @@
           type="search"
           name="q"
           [(ngModel)]="terme"
-          placeholder="Ex. « fuite sous l'évier », « cours de maths »…"
+          [placeholder]="placeholder()"
           aria-label="Chercher un service"
         />
         <button class="tp-btn tp-btn--primary" type="submit">Chercher</button>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="hero__visual">
-      <app-photo ratio="5 / 6" radius="22px" src="images/hero.jpg" alt="Un intervenant ToutiPass au travail chez un client" label="photo hero — artisan chez un client · 1000×1200" />
+      <app-photo ratio="5 / 6" radius="22px" effet="kenburns" src="images/hero.jpg" alt="Un intervenant ToutiPass au travail chez un client" label="photo hero — artisan chez un client · 1000×1200" />
       <div class="hero__badge tp-card hero__badge--float" aria-hidden="true">
         <span class="hero__badge-ic"><app-icon name="shield-check" [size]="22" /></span>
         <div>

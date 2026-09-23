@@ -1,5 +1,5 @@
 <section class="page-head">
-  <div class="tp-container">
+  <div class="tp-container" appReveal>
     <h1>Rechercher un service</h1>
     <form class="search-bar" (ngSubmit)="soumettre()">
       <input
@@ -21,12 +21,12 @@
       @if (resultats().length > 0) {
         <p class="lead">{{ resultats().length }} résultat(s) pour « {{ terme }} »</p>
         <div class="grid-services">
-          @for (s of resultats(); track s.slug) {
-            <app-service-card [service]="s" />
+          @for (s of resultats(); track s.slug; let i = $index) {
+            <app-service-card [service]="s" appReveal [revealDelay]="i * 45" />
           }
         </div>
       } @else {
-        <div class="aide tp-card">
+        <div class="aide tp-card" appReveal>
           <p><strong>Aucun résultat pour « {{ terme }} ».</strong> Pas d'inquiétude : décrivez-nous votre besoin, ToutiPass cherche une solution.</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px">
             <a class="tp-btn tp-btn--primary" routerLink="/concierge">ToutiPass Concierge</a>
