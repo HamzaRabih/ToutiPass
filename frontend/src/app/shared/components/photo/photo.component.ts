@@ -16,7 +16,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-photo',
   standalone: true,
   template: `
-    <div class="photo" [style.aspectRatio]="ratio" [style.borderRadius]="radius">
+    <div class="photo" [class.photo--kb]="kenBurns" [style.aspectRatio]="ratio" [style.borderRadius]="radius">
       @if (src) {
         <img
           class="photo__img"
@@ -52,4 +52,6 @@ export class PhotoComponent {
   @Input() alt = '';
   /** true : label discret sans encadré (cartes univers). */
   @Input() plain = false;
+  /** true : zoom très lent en boucle (grandes photos : hero, en-têtes). */
+  @Input() kenBurns = false;
 }

@@ -20,7 +20,7 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
       <div class="tp-container">
         <div class="etapes">
           @for (s of etapes; track s.n; let i = $index) {
-            <div class="etape" [class.etape--first]="i === 0" appReveal [revealDelay]="i * 70">
+            <div class="etape" [class.etape--first]="i === 0" appReveal revealFrom="left" [revealDelay]="i * 120">
               <div class="etape__n">{{ s.n }}</div>
               <div>
                 <div class="etape__t">{{ s.titre }}</div>
@@ -50,6 +50,8 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
         min-width: 48px; flex: 0 0 auto;
       }
       .etape--first .etape__n { color: var(--brand); }
+      .etape__n { transition: color 0.3s ease-out, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+      .etape:hover .etape__n { color: var(--amber); transform: translateX(6px) scale(1.1); }
       .etape__t { font-size: 19px; font-weight: 700; margin-bottom: 6px; }
       .etape__d { font-size: 15.5px; color: var(--muted); line-height: 1.6; max-width: 60ch; }
       .aide__btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }

@@ -1,4 +1,5 @@
-<header class="hd">
+<header class="hd" [class.hd--scrolled]="defile()">
+  <span class="hd__progress" aria-hidden="true"></span>
   <div class="tp-container hd__inner">
     <a routerLink="/" class="hd__logo" aria-label="ToutiPass — accueil" (click)="fermer()">
       <img src="images/logo-horizontal.svg" alt="ToutiPass" class="hd__logo-img" width="252" height="64" />

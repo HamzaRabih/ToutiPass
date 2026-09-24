@@ -82,13 +82,29 @@ composant : utiliser les variables de `styles/_tokens.scss`.
 - Fonds sable `--sand #FBF8F3` / `--sand-2 #F5F1E9`, encre `--ink #10211C`.
 - Polices **Plus Jakarta Sans** (texte) et **IBM Plex Mono** (micro-labels, référence de demande),
   chargées depuis Google Fonts dans `index.html`.
-- Cartes : bordure `1px` sans ombre ; survol = bordure plus foncée + `translateY(-2px)`.
+- Cartes : bordure `1px` sans ombre au repos ; survol = élévation (`translateY`) + ombre douce.
+
+## Animations
+
+Tout est en CSS (transform/opacity) et coupé par `prefers-reduced-motion` (fin de `styles.scss`).
+
+- **Keyframes globales** dans `styles.scss` : `tp-rise`, `tp-rise-right`, `tp-drift1/2`, `tp-float`,
+  `tp-kenburns`, `tp-spin`, `tp-marquee`, `tp-sheen`, `tp-ping`, `tp-pop`, `tp-progress`. Les
+  réutiliser depuis les composants plutôt que d'en redéfinir.
+- **Apparition au scroll** : directive `appReveal` (`[revealDelay]` pour l'escalier,
+  `revealFrom="up|left|right|zoom"`). Elle retire ses classes après l'animation.
+- **Photos** : `<app-photo [kenBurns]="true">` = zoom lent en boucle ; zoom au survol des cartes univers.
+- En place : entrée en cascade du hero, placeholder de recherche « machine à écrire » (hors zone
+  Angular), bandeau défilant des services, anneau/pastilles flottantes du hero, barre de lecture et
+  en-tête compact au scroll, soulignement animé du menu, pulsation du bouton WhatsApp, reflet sur
+  les boutons, fonds de `.page-head` animés, étapes qui se remplissent.
 
 ## Contenus et médias
 
 - **Photos** : `frontend/public/images/` (univers en 16/10, hero en 5/6, partenaire en 3/2), photos
-  Unsplash libres de droits choisies sans visage. `app-photo` affiche l'image si `src` est renseigné,
-  sinon un emplacement rayé. Guide : `frontend/public/images/README.md`.
+  Unsplash libres de droits, style « pro au travail », sans visage. Liste et crédits :
+  `frontend/public/images/README.md`. `app-photo` affiche l'image si `src` est renseigné, sinon un
+  emplacement rayé.
   Pour télécharger via l'API interne d'Unsplash : ne pas envoyer de User-Agent de navigateur (réponse
   « Authorization required »), et **exclure les résultats `premium`/`plus`** (images filigranées).
 - **Icônes** : ajouter un `@case` dans `shared/components/icon/icon.component.ts` (tracé SVG 24×24,
@@ -104,14 +120,17 @@ composant : utiliser les variables de `styles/_tokens.scss`.
 - Dans le header, le bouton « Devenir partenaire » est aussi un `.hd__nav a` : ses règles sont écrites
   `.hd__nav a.hd__cta…` pour battre la spécificité de `.hd__nav a:hover` (sinon texte vert sur vert).
 - Les validateurs custom de formulaire prennent un `AbstractControl`, pas un `FormControl`.
-- Budget de style par composant relevé à 8 kB (avertissement) / 16 kB (erreur) dans `angular.json`.
+- Budget de style par composant : 12 kB (avertissement) / 16 kB (erreur) dans `angular.json`.
+- Le `padding` d'un bloc qui porte aussi `.tp-container` doit être en `padding-block`, sinon il
+  écrase la marge latérale mobile. En grille mobile, utiliser `minmax(0, 1fr)` pour éviter les
+  débordements.
+- La variante de bouton `tp-btn--brand` (utilisée par `contact-actions`) est un alias de `--primary`.
 
 ## À faire / pistes
 
 - Renseigner dans `frontend/src/environments/environment.ts` : numéro WhatsApp officiel, téléphone,
   URLs Formspree (actuellement des valeurs d'exemple ; l'envoi échoue tant qu'elles ne sont pas réelles).
 - Remplacer les photos Unsplash par de vraies photos de Lubumbashi (mêmes noms de fichiers).
-- Vérifier visuellement les dernières icônes et animations (hero animé, badge flottant, logo WhatsApp).
 - Optionnel : polices auto-hébergées en WOFF2 (performance), favicon à partir de `logo-symbol.svg`.
 - **Lot 2** : backend Spring Boot + SQL Server, back-office (dispatch, missions, tarifs, paiements,
   avis). Créer `HttpCatalogueService` / `HttpSubmissionService` et les brancher dans `app.config.ts`.

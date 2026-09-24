@@ -4,7 +4,7 @@
   <div class="tp-container hero__inner">
     <div class="hero__content">
       <span class="pill">Conciergerie multiservices · Lubumbashi</span>
-      <h1>De quoi avez-vous besoin aujourd'hui ?</h1>
+      <h1>De quoi avez-vous besoin <span class="hl">aujourd'hui</span> ?</h1>
       <p class="hero__sous">
         Plomberie, ménage, cours, transport, services pros. Vous expliquez, on s'occupe du reste :
         un partenaire vérifié, choisi et suivi par notre équipe.
@@ -13,6 +13,7 @@
       <form class="hero__search" (ngSubmit)="rechercher()">
         <span class="hero__search-dot" aria-hidden="true"></span>
         <input
+          #champ
           type="search"
           name="q"
           [(ngModel)]="terme"
@@ -27,14 +28,20 @@
       </div>
 
       <ul class="hero__trust">
-        <li><span aria-hidden="true">✓</span> Partenaires vérifiés</li>
-        <li><span aria-hidden="true">✓</span> Sans création de compte</li>
-        <li><span aria-hidden="true">✓</span> Réponse humaine, pas un robot</li>
+        <li><app-icon name="check-circle" [size]="18" /> Partenaires vérifiés</li>
+        <li><app-icon name="check-circle" [size]="18" /> Sans création de compte</li>
+        <li><app-icon name="check-circle" [size]="18" /> Réponse humaine, pas un robot</li>
       </ul>
     </div>
 
     <div class="hero__visual">
-      <app-photo ratio="5 / 6" radius="22px" src="images/hero.jpg" alt="Un intervenant ToutiPass au travail chez un client" label="photo hero — artisan chez un client · 1000×1200" />
+      <span class="hero__ring" aria-hidden="true"></span>
+      <span class="hero__dots" aria-hidden="true"></span>
+      <app-photo ratio="5 / 6" radius="22px" src="images/hero.jpg" [kenBurns]="true" alt="Un intervenant ToutiPass équipé de sa ceinture à outils" label="photo hero — artisan chez un client · 1000×1200" />
+      <div class="hero__chip tp-card" aria-hidden="true">
+        <span class="hero__chip-ic"><app-icon name="message" [size]="18" /></span>
+        <span><strong>Réponse humaine</strong><br />7 h – 21 h, 7 j/7</span>
+      </div>
       <div class="hero__badge tp-card hero__badge--float" aria-hidden="true">
         <span class="hero__badge-ic"><app-icon name="shield-check" [size]="22" /></span>
         <div>
@@ -45,6 +52,21 @@
     </div>
   </div>
 </section>
+
+<!-- ===== BANDEAU DÉFILANT DES SERVICES ===== -->
+@if (bandeau$ | async; as items) {
+  <div class="ticker" aria-label="Quelques services proposés">
+    <div class="ticker__track">
+      @for (rep of [0, 1]; track rep) {
+        <ul class="ticker__list" [attr.aria-hidden]="rep === 1 ? 'true' : null">
+          @for (it of items; track $index) {
+            <li><app-icon [name]="it.ic" [size]="18" /> {{ it.nom }}</li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}
 
 <!-- ===== PAR UNIVERS ===== -->
 <section class="tp-section band-sand">
@@ -59,7 +81,7 @@
 
     <div class="grid-univers">
       @for (u of (univers$ | async); track u.slug; let i = $index) {
-        <div appReveal [revealDelay]="i * 50"><app-univers-card [univers]="u" /></div>
+        <div appReveal revealFrom="zoom" [revealDelay]="i * 90"><app-univers-card [univers]="u" /></div>
       }
     </div>
 
@@ -87,8 +109,8 @@
     </div>
     <div class="steps">
       @for (s of etapes; track s.n; let i = $index) {
-        <div class="step" [class.step--first]="i === 0" appReveal [revealDelay]="i * 60">
-          <div class="step__n">{{ s.n }}</div>
+        <div class="step" appReveal [revealDelay]="i * 140">
+          <div class="step__n"><span>{{ s.n }}</span></div>
           <div class="step__t">{{ s.titre }}</div>
           <div class="step__d">{{ s.desc }}</div>
         </div>
@@ -99,15 +121,15 @@
 
 <!-- ===== POURQUOI ===== -->
 <section class="tp-section band-sand">
-  <div class="tp-container pourquoi" appReveal>
-    <div class="pourquoi__intro">
+  <div class="tp-container pourquoi">
+    <div class="pourquoi__intro" appReveal revealFrom="left">
       <h3>Pourquoi ToutiPass</h3>
       <p>Vos services du quotidien, un seul contact. Pas de liste à éplucher, pas de profils à comparer : une équipe qui connaît ses partenaires et répond de leur travail.</p>
       <a class="tp-btn tp-btn--primary" [href]="lienWhatsapp" target="_blank" rel="noopener">Parler de mon besoin</a>
     </div>
     <div class="pourquoi__grid">
       @for (e of engagements; track e.t; let i = $index) {
-        <div class="eng tp-card">
+        <div class="eng tp-card" appReveal [revealDelay]="i * 110">
           <span class="eng__ic" [class.eng__ic--amber]="i === 3"><app-icon [name]="e.ic" [size]="20" /></span>
           <div class="eng__t">{{ e.t }}</div>
           <div class="eng__d">{{ e.d }}</div>
@@ -119,14 +141,14 @@
 
 <!-- ===== BANDEAU FINAL ===== -->
 <section class="tp-section">
-  <div class="tp-container final" appReveal>
-    <div class="final__partner">
+  <div class="tp-container final">
+    <div class="final__partner" appReveal revealFrom="left">
       <div class="mono-label" style="color:var(--amber)">Partenaires</div>
       <h3>Vous savez faire quelque chose de bien ?</h3>
       <p>ToutiPass peut vous apporter des missions près de chez vous. Inscription en cinq minutes, sans frais.</p>
       <a class="tp-btn tp-btn--amber" routerLink="/devenir-partenaire">Rejoindre le réseau ToutiPass</a>
     </div>
-    <div class="final__contact tp-card">
+    <div class="final__contact tp-card" appReveal revealFrom="right">
       <h3>Un besoin maintenant ?</h3>
       <p>On répond de 7 h à 21 h, sept jours sur sept. Zone desservie : Lubumbashi et périphérie.</p>
       <app-contact-actions layout="stack" primaryLabel="Écrire sur WhatsApp" primaryVariant="brand" />

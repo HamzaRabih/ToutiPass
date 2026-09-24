@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { CatalogueService } from '../../core/services/catalogue.service';
 import { ServiceCardComponent } from '../../shared/components/service-card/service-card.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, ServiceCardComponent, IconComponent],
+  imports: [AsyncPipe, RouterLink, ServiceCardComponent, IconComponent, RevealDirective],
   templateUrl: './services.component.html',
 })
 export class ServicesComponent {

@@ -1,24 +1,31 @@
 @if (univers$ | async; as u) {
   <section class="page-head">
-    <div class="tp-container">
+    <div class="tp-container uh">
+      <div class="uh__text">
       <nav class="crumb"><a routerLink="/services">Services</a> › <span class="is-current">{{ u.nom }}</span></nav>
       <h1 class="uni-h1">
         @if (u.iconName) { <span class="uni-h1__ic"><app-icon [name]="u.iconName" [size]="30" /></span> }
         {{ u.nom }}
       </h1>
       @if (u.tagline) { <p class="lead">{{ u.tagline }}</p> }
+      </div>
+      @if (u.image) {
+        <div class="uh__photo">
+          <app-photo ratio="16 / 10" radius="18px" [src]="u.image" [alt]="u.imageAlt || u.nom" [kenBurns]="true" />
+        </div>
+      }
     </div>
   </section>
 
   <section class="tp-section">
     <div class="tp-container">
       <div class="grid-services">
-        @for (s of u.services; track s.slug) {
-          <app-service-card [service]="s" />
+        @for (s of u.services; track s.slug; let i = $index) {
+          <app-service-card [service]="s" appReveal [revealDelay]="(i % 3) * 90" />
         }
       </div>
 
-      <div class="aide tp-card">
+      <div class="aide tp-card" appReveal>
         <p><strong>Vous ne trouvez pas exactement votre besoin ?</strong> Parlons-en directement.</p>
         <app-contact-actions />
       </div>

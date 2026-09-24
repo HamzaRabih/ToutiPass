@@ -14,7 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
  * - Ne s'active que dans le navigateur (SSR/prerender : contenu visible par défaut).
  * - Respecte prefers-reduced-motion (le CSS neutralise l'effet).
  *
- * Usage : <div appReveal [revealDelay]="120">…</div>
+ * Usage : <div appReveal [revealDelay]="120" revealFrom="left">…</div>
  */
 @Directive({
   selector: '[appReveal]',
@@ -23,11 +23,14 @@ import { isPlatformBrowser } from '@angular/common';
 export class RevealDirective implements AfterViewInit, OnDestroy {
   /** Délai d'apparition en ms (pour créer un effet d'escalier). */
   @Input() revealDelay = 0;
+  /** Direction d'arrivée : du bas (défaut), de gauche, de droite, ou zoom. */
+  @Input() revealFrom: 'up' | 'left' | 'right' | 'zoom' = 'up';
 
   private el = inject(ElementRef<HTMLElement>);
   private platformId = inject(PLATFORM_ID);
   private observer?: IntersectionObserver;
   private fallback?: ReturnType<typeof setTimeout>;
+  private cleanup?: ReturnType<typeof setTimeout>;
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
@@ -42,6 +45,9 @@ export class RevealDirective implements AfterViewInit, OnDestroy {
     }
 
     node.classList.add('reveal');
+    if (this.revealFrom !== 'up') {
+      node.classList.add(`reveal--${this.revealFrom}`);
+    }
     if (this.revealDelay) {
       node.style.transitionDelay = `${this.revealDelay}ms`;
     }
@@ -52,6 +58,12 @@ export class RevealDirective implements AfterViewInit, OnDestroy {
       if (this.fallback) {
         clearTimeout(this.fallback);
       }
+      // Une fois l'animation jouée, on rend l'élément à ses styles normaux
+      // (sinon le délai d'escalier ralentirait aussi les effets de survol).
+      this.cleanup = setTimeout(() => {
+        node.classList.remove('reveal', `reveal--${this.revealFrom}`, 'is-visible');
+        node.style.transitionDelay = '';
+      }, this.revealDelay + 800);
     };
 
     this.observer = new IntersectionObserver(
@@ -73,6 +85,7 @@ export class RevealDirective implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    clearTimeout(this.cleanup);
     if (this.fallback) {
       clearTimeout(this.fallback);
     }
